@@ -9,7 +9,7 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'SpFxMsalAuthDemoWebPartStrings';
-import SpFxMsalAuthDemo from './components/SpFxMsalAuthDemo';
+import { SpFxMsalAuthDemo } from './components/SpFxMsalAuthDemo';
 import { ISpFxMsalAuthDemoProps } from './components/ISpFxMsalAuthDemoProps';
 
 
