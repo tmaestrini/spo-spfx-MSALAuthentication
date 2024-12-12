@@ -1,0 +1,24 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "whichFolder": "subdir",
+    "solutionName": "SPFxMSALAuthentication",
+    "componentType": "webpart",
+    "template": "react",
+    "componentName": "SPFxMSALAuthDemo",
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "20.18.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
+    "libraryName": "sp-fx-msal-authentication",
+    "libraryId": "b5afa7e3-35aa-46f4-b180-28b9e1834980",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionShortDescription": "SPFxMSALAuthentication description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false
+  }
+}

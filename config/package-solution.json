@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sp-fx-msal-authentication-client-side-solution",
+    "id": "b5afa7e3-35aa-46f4-b180-28b9e1834980",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "SPFxMSALAuthentication description"
+      },
+      "longDescription": {
+        "default": "SPFxMSALAuthentication description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "sp-fx-msal-authentication Feature",
+        "description": "The feature that activates elements of the sp-fx-msal-authentication solution.",
+        "id": "bcd6b9a9-0b30-45b5-97c9-4df69c484852",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sp-fx-msal-authentication.sppkg"
+  }
+}
