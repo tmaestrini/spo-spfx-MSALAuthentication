@@ -2,6 +2,8 @@ declare interface ISpFxMsalAuthDemoWebPartStrings {
   ApplicationIDFieldLabel: string;
   RedirectUriFieldLabel: string;
   TenantUrlFieldLabel: string;
+  ScopesFieldLabel: string;
+  ApiCallFieldLabel: string;
 
   PropertyPaneDescription: string;
   BasicGroupName: string;

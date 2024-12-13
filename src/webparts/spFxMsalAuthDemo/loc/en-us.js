@@ -3,6 +3,8 @@ define([], function() {
     "ApplicationIDFieldLabel": "Application ID",
     "RedirectUriFieldLabel": "Redirect URI",
     "TenantUrlFieldLabel": "Tenant URL",
+    "ScopesFieldLabel": "Scopes",
+    "ApiCallFieldLabel": "Api Call (test)",
 
     "PropertyPaneDescription": "Description",
     "BasicGroupName": "Group Name",

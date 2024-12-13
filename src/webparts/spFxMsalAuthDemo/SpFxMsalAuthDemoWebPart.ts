@@ -16,7 +16,9 @@ import { ISpFxMsalAuthDemoProps } from './components/ISpFxMsalAuthDemoProps';
 export interface ISpFxMsalAuthDemoWebPartProps {
   applicationID: string;
   redirectUri: string;
-  tenantUrl: string;
+  tenantIdentifier: string;
+  scopes: string;
+  apiCall: string;
 }
 
 export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFxMsalAuthDemoWebPartProps> {
@@ -27,12 +29,13 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
       {
         applicationID: this.properties.applicationID,
         redirectUri: this.properties.redirectUri,
-        tenantUrl: this.properties.tenantUrl,
+        tenantIdentifier: this.properties.tenantIdentifier,
+        scopes: this.properties.scopes,
+        apiCall: this.properties.apiCall,
         httpClient: this.context.httpClient,
         userMail: this.context.pageContext.user.email,
       }
     );
-
     ReactDom.render(element, this.domElement);
   }
 
@@ -62,6 +65,9 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
     return Version.parse('1.0');
   }
 
+  protected get disableReactivePropertyChanges(): boolean {
+    return true;
+  }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -79,9 +85,17 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
                 PropertyPaneTextField('redirectUri', {
                   label: strings.RedirectUriFieldLabel
                 }),
-                PropertyPaneTextField('tenantUrl', {
+                PropertyPaneTextField('tenantIdentifier', {
                   label: strings.TenantUrlFieldLabel
-                })
+                }),
+                PropertyPaneTextField('scopes', {
+                  label: strings.ScopesFieldLabel,
+                  multiline: true,
+                }),
+                PropertyPaneTextField('apiCall', {
+                  label: strings.ApiCallFieldLabel,
+                  multiline: true,
+                }),
               ]
             }
           ]
