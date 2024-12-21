@@ -84,7 +84,7 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
                 }),
                 PropertyPaneTextField('redirectUri', {
                   label: strings.RedirectUriFieldLabel,
-                  description: 'optional'
+                  description: 'optional (not needed in this case)'
                 }),
                 PropertyPaneTextField('tenantIdentifier', {
                   label: strings.TenantUrlFieldLabel
@@ -92,7 +92,7 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
                 PropertyPaneTextField('scopes', {
                   label: strings.ScopesFieldLabel,
                   multiline: true,
-                  description: 'optional'
+                  description: 'optional; ⚠️ you should not need to set scopes here because once you grant these scopes (as admin) in the consent window, you bypass the defined scopes in the app registration.'
                 }),
                 PropertyPaneTextField('apiCall', {
                   label: strings.ApiCallFieldLabel,
