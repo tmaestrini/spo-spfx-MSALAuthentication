@@ -8,8 +8,9 @@ import { spfi, SPBrowser } from "@pnp/sp";
 import { MSAL } from "@pnp/msaljsclient";
 import "@pnp/sp/webs";
 import "@pnp/sp/site-users/web";
-import { PublicClientApplication } from "@azure/msal-browser";
+import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { HttpClient } from '@microsoft/sp-http';
+import { PrimaryButton } from '@fluentui/react';
 
 
 export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
@@ -19,10 +20,12 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
   const { applicationID, tenantIdentifier, scopes, redirectUri, apiCall } = props;
   const { httpClient } = props;
 
+  const [msalInstance, setMsalInstance] = React.useState<PublicClientApplication>();
   const [userMail, setUserMail] = React.useState<string>();
   const [userScopes, setUserScopes] = React.useState<string>();
   const [accessToken, setAccessToken] = React.useState<string>();
   const [apiCallData, setApiCallData] = React.useState<string>();
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 
   async function loginForSPOAccessTokenByMSAL(): Promise<void> {
     const spoOptions: MSALOptions = {
@@ -52,7 +55,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
   }
 
   async function loginForGraphAccessTokenByMSAL(): Promise<void> {
-    const config = {
+    const config: Configuration = {
       auth: {
         clientId: applicationID,
         authority: `https://login.microsoftonline.com/${tenantIdentifier}`,
@@ -72,11 +75,25 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
         scopes: [...scopes.split(',')],
         account: msalInstance.getAllAccounts()[0]
       });
+      setMsalInstance(msalInstance);
       console.log('Silent token result:', result);
       setUserScopes(result.scopes.join(', '));
       setAccessToken(result.accessToken);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error("Error acquiring token silently:", error);
+    }
+  }
+
+  async function logout(): Promise<void> {
+    console.log(msalInstance);
+    try {
+      if (!msalInstance) return;
+      await msalInstance.logoutPopup();
+      setIsLoggedIn(false);
+      console.log('Logged out');
+    } catch (error) {
+      console.error("Error logging out:", error);
     }
   }
 
@@ -84,7 +101,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
     console.log(`calling graph with access token: ${accessToken}`);
 
     const response = await httpClient.get(apiCall, HttpClient.configurations.v1, {
-    headers: {
+      headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     });
@@ -103,19 +120,22 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
     }
   }
 
-  React.useEffect(() => {
-    loginForSPOAccessTokenByMSAL().catch(console.error);
-    loginForGraphAccessTokenByMSAL().catch(console.error);
-  }, []);
+  // React.useEffect(() => {
+  //   console.log('reloading tokens');
+  //   loginForSPOAccessTokenByMSAL().catch(console.error);
+  //   loginForGraphAccessTokenByMSAL().catch(console.error);
+  // }, []);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
+    console.log('reloading');
     loginForSPOAccessTokenByMSAL().catch(console.error);
     loginForGraphAccessTokenByMSAL().catch(console.error);
   }, [props, scopes]);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
+    console.log('reloading user info from graph');
     getUserInfoFromGraph().catch(console.error);
-  }, [accessToken, props]);
+  }, [accessToken, isLoggedIn]);
 
   return (
     <section className={`${styles.spFxMsalAuthDemo}`}>
@@ -138,6 +158,9 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
         <div className={styles.welcome}>
           <h2>Current User Scopes (From Entra ID)</h2>
           <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{userScopes}</pre></div>
+          {isLoggedIn &&
+            <div><PrimaryButton text='Logout' onClick={logout} /></div>
+          }
         </div>
       )}
 
@@ -147,6 +170,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
           <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{apiCallData}</pre></div>
         </div>
       )}
+
     </section>
   )
 }
