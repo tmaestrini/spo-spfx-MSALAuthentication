@@ -149,7 +149,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
 
       {userMail && (
         <div className={styles.welcome}>
-          <h2>Current User Info (From Entra ID)</h2>
+          <h2>Current User Info (From Entra ID) by SPO Authentication</h2>
           <div>User Mail: <strong>{userMail}</strong></div>
         </div>
       )}
