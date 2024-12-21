@@ -92,7 +92,7 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
                 PropertyPaneTextField('scopes', {
                   label: strings.ScopesFieldLabel,
                   multiline: true,
-                  description: 'optional; ⚠️ you should not need to set scopes here because once you grant these scopes (as admin) in the consent window, you bypass the defined scopes in the app registration.'
+                  description: 'optional; ⚠️ you should not need to set scopes here because once you grant these scopes (as admin) in the consent window, you bypass the defined scopes in the app registration (and will be listed below the defined scopes).'
                 }),
                 PropertyPaneTextField('apiCall', {
                   label: strings.ApiCallFieldLabel,
