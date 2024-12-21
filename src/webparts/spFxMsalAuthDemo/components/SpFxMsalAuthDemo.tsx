@@ -14,9 +14,6 @@ import { PrimaryButton } from '@fluentui/react';
 
 
 export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
-  // clientId: '7d41c187-16f0-4fbb-b5e8-be4b282801df',
-  // authority: 'https://login.microsoftonline.com/tmaestrini.onmicrosoft.com',
-
   const { applicationID, tenantIdentifier, scopes, redirectUri, apiCall } = props;
   const { httpClient } = props;
 
@@ -31,8 +28,8 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
     const spoOptions: MSALOptions = {
       configuration: {
         auth: {
-          authority: "https://login.microsoftonline.com/tmaestrini.onmicrosoft.com/",
-          clientId: "7d41c187-16f0-4fbb-b5e8-be4b282801df",
+          clientId: applicationID,
+          authority: `https://login.microsoftonline.com/${tenantIdentifier}`,
         },
         cache: {
           claimsBasedCachingEnabled: true // in order to avoid network call to refresh a token every time claims are requested
@@ -40,7 +37,8 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
       },
       authParams: {
         forceRefresh: false,
-        scopes: ["https://tmaestrini.sharepoint.com/.default"],
+        scopes: [...scopes.split(',')],
+        // scopes: ["https://tmaestrini.sharepoint.com/.default"],
       }
     };
 
@@ -66,16 +64,17 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
         storeAuthStateInCookie: false,
       },
     };
+    setIsLoggedIn(false);
 
     const msalInstance = new PublicClientApplication(config);
     await msalInstance.initialize();
-
     try {
+      setMsalInstance(msalInstance);
       const result = await msalInstance.acquireTokenSilent({
-        scopes: [...scopes.split(',')],
+        scopes: scopes ? [...scopes.split(',')] : [],
         account: msalInstance.getAllAccounts()[0]
       });
-      setMsalInstance(msalInstance);
+
       console.log('Silent token result:', result);
       setUserScopes(result.scopes.join(', '));
       setAccessToken(result.accessToken);
@@ -86,16 +85,13 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
   }
 
   async function logout(): Promise<void> {
-    console.log(msalInstance);
-    try {
-      if (!msalInstance) return;
+    if (msalInstance) {
       await msalInstance.logoutPopup();
       setIsLoggedIn(false);
-      console.log('Logged out');
-    } catch (error) {
-      console.error("Error logging out:", error);
+      window.location.reload();
     }
   }
+
 
   async function getUserInfoFromGraph(): Promise<void> {
     console.log(`calling graph with access token: ${accessToken}`);
@@ -120,12 +116,6 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
     }
   }
 
-  // React.useEffect(() => {
-  //   console.log('reloading tokens');
-  //   loginForSPOAccessTokenByMSAL().catch(console.error);
-  //   loginForGraphAccessTokenByMSAL().catch(console.error);
-  // }, []);
-
   React.useMemo(() => {
     console.log('reloading');
     loginForSPOAccessTokenByMSAL().catch(console.error);
@@ -141,7 +131,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
     <section className={`${styles.spFxMsalAuthDemo}`}>
       <div className={styles.welcome}>
         <img alt="" src={require('../assets/welcome-light.png')} className={styles.welcomeImage} />
-        <h2>Demo</h2>
+        <h2>Authentication Info (webpart properties)</h2>
         <div>Application ID: <strong>{escape(applicationID)}</strong></div>
         <div>Redirect URI: <strong>{escape(redirectUri)}</strong></div>
         <div>Tenant URL: <strong>{escape(tenantIdentifier)}</strong></div>
@@ -149,7 +139,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
 
       {userMail && (
         <div className={styles.welcome}>
-          <h2>① Current User Info (From Entra ID) by SPO Authentication</h2>
+          <h2>① Current User Info From SPO</h2>
           <div>User Mail: <strong>{userMail}</strong></div>
         </div>
       )}
@@ -160,10 +150,14 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
           <h3>Current User Scopes (From Entra ID)</h3>
           <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{userScopes}</pre></div>
           {isLoggedIn &&
-            <div><PrimaryButton text='Logout' onClick={logout} /></div>
+            <>
+              <div><PrimaryButton text='Akquire new token' onClick={loginForGraphAccessTokenByMSAL} /></div>
+              <div><PrimaryButton text='Logout' onClick={logout} /></div>
+            </>
           }
           {graphApiCallData && (
             <><h3>③ Microsoft Graph: Return value from API call</h3>
+              <>{apiCall}</>
               <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{graphApiCallData}</pre></div>
             </>
           )}

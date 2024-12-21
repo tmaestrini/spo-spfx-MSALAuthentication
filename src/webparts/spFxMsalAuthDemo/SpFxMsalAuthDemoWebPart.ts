@@ -83,7 +83,8 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
                   label: strings.ApplicationIDFieldLabel
                 }),
                 PropertyPaneTextField('redirectUri', {
-                  label: strings.RedirectUriFieldLabel
+                  label: strings.RedirectUriFieldLabel,
+                  description: 'optional'
                 }),
                 PropertyPaneTextField('tenantIdentifier', {
                   label: strings.TenantUrlFieldLabel
@@ -91,6 +92,7 @@ export default class SpFxMsalAuthDemoWebPart extends BaseClientSideWebPart<ISpFx
                 PropertyPaneTextField('scopes', {
                   label: strings.ScopesFieldLabel,
                   multiline: true,
+                  description: 'optional'
                 }),
                 PropertyPaneTextField('apiCall', {
                   label: strings.ApiCallFieldLabel,
