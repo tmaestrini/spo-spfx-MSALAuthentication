@@ -24,7 +24,7 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
   const [userMail, setUserMail] = React.useState<string>();
   const [userScopes, setUserScopes] = React.useState<string>();
   const [accessToken, setAccessToken] = React.useState<string>();
-  const [apiCallData, setApiCallData] = React.useState<string>();
+  const [graphApiCallData, setGraphApiCallData] = React.useState<string>();
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 
   async function loginForSPOAccessTokenByMSAL(): Promise<void> {
@@ -110,9 +110,9 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('response data:', responseData);
-        setApiCallData(JSON.stringify(responseData, null, 2));
+        setGraphApiCallData(JSON.stringify(responseData, null, 2));
       } else {
-        setApiCallData(`Error fetching data: ${response.status}`);
+        setGraphApiCallData(`Error fetching data: ${response.status}`);
         console.error('Error fetching data:', response.statusText);
       }
     } catch (error) {
@@ -149,27 +149,27 @@ export const SpFxMsalAuthDemo: React.FC<ISpFxMsalAuthDemoProps> = (props) => {
 
       {userMail && (
         <div className={styles.welcome}>
-          <h2>Current User Info (From Entra ID) by SPO Authentication</h2>
+          <h2>① Current User Info (From Entra ID) by SPO Authentication</h2>
           <div>User Mail: <strong>{userMail}</strong></div>
         </div>
       )}
 
       {userScopes && (
         <div className={styles.welcome}>
-          <h2>Current User Scopes (From Entra ID)</h2>
+          <h2>② Microsoft Graph</h2>
+          <h3>Current User Scopes (From Entra ID)</h3>
           <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{userScopes}</pre></div>
           {isLoggedIn &&
             <div><PrimaryButton text='Logout' onClick={logout} /></div>
           }
+          {graphApiCallData && (
+            <><h3>③ Microsoft Graph: Return value from API call</h3>
+              <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{graphApiCallData}</pre></div>
+            </>
+          )}
         </div>
       )}
 
-      {apiCallData && (
-        <div className={styles.welcome}>
-          <h2>Return value from API call</h2>
-          <div><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{apiCallData}</pre></div>
-        </div>
-      )}
 
     </section>
   )
