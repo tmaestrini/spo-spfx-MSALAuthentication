@@ -41,9 +41,13 @@ export const AuthenticationContextProvider = (props: AuthenticationContextProvid
 
   async function initializeMsal(): Promise<void> {
     setIsAuthenticated(false);
-    const msalObj = new PublicClientApplication(config);
-    await msalObj.initialize();
-    setMsalInstance(msalObj);
+    try {
+      const msalObj = new PublicClientApplication(config);
+      await msalObj.initialize();
+      setMsalInstance(msalObj);
+    } catch (error) {
+      console.error("Error creating MSAL auth object:", error);
+    }
   }
 
   React.useEffect(() => {
@@ -90,7 +94,7 @@ export const AuthenticationContextProvider = (props: AuthenticationContextProvid
 
   return (
     <AuthenticationContext.Provider value={{
-      isAuthenticated,userScopes, accessToken,
+      isAuthenticated, userScopes, accessToken,
       reauthenticate
     }}>
       {props.children}
