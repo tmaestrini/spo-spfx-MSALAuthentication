@@ -63,7 +63,7 @@ export const GraphDataDisplay: React.FC<GraphDataDisplayProps> = (props) => {
       <h2>Authentication Info (webpart properties)</h2>
       <div>Application ID: <strong>{escape(applicationID)}</strong></div>
       <div>Redirect URI: <strong>{escape(redirectUri)}</strong></div>
-      <div>Tenant URL: <strong>{escape(tenantIdentifier)}</strong></div>
+      <div>Tenant ID: <strong>{escape(tenantIdentifier)}</strong></div>
     </div>
 
     <div className={styles.welcome}>

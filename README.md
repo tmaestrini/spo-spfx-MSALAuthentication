@@ -64,7 +64,7 @@ The SPFX MSAL Authentication Demo webpart provides a practical example of implem
 
 - Configurable client ID and tenant ID
 - Custom scope management
-- Token caching in sessionStorage
+- Token caching in `sessionStorage`
 - Silent token refresh
 - Interactive login fallback
 - Error handling for auth failures
@@ -76,9 +76,10 @@ The SPFX MSAL Authentication Demo webpart provides a practical example of implem
   - App registration
   - Authentication type: Single-page application (SPA)
   - Implicit authorisation and hybrid flows: ID token
-  - Application type: single tenant application
-  - Redirect URI: https://{tenant}.sharepoint.com/_layouts/15/workbench.aspx
-  - Required API Permissions: Microsoft Graph (User.Read), any further permission(s) along your (demo) needs
+  - Supported account types: Accounts in this organizational directory only
+  - Redirect URI: 
+    - `https://{tenant}.sharepoint.com`
+  - Required API Permissions: Microsoft Graph (`User.Read`), any further permission(s) along your (demo) needs
 
 ## References
 
