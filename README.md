@@ -21,7 +21,7 @@ It should serve as a template for developers to understand and implement Azure A
 
 | Solution         | Author(s)                                               |
 | ---------------- | ------------------------------------------------------- |
-| spFxMsalAuthDemo | Tobias Maestrini, isolutions AG (tobias.maestrini@gmail.com, https://bsky.app/profile/tmaestrini.bsky.social) |
+| spFxMsalAuthDemo | Tobias Maestrini (tobias.maestrini@gmail.com, https://bsky.app/profile/tmaestrini.bsky.social) |
 
 ## Version history
 
