@@ -2,9 +2,9 @@
 
 ## Summary
 
-The SPFX MSAL Authentication Demo webpart provides a practical example of implementing Microsoft Authentication Library (MSAL) within a SharePoint Framework environment, allowing users to authenticate against Azure AD and obtain access tokens for secure API calls. 
+The SPFX MSAL Authentication Demo webpart provides a practical example of implementing Microsoft Authentication Library (MSAL) within a SharePoint Framework environment, allowing users to authenticate against Entra ID and obtain access tokens for secure API calls. 
 
-It should serve as a template for developers to understand and implement Azure AD authentication in their own SharePoint Framework solutions.
+It should serve as a template for developers to understand and implement Entra ID authentication in their own SharePoint Framework solutions.
 
 ## Used SharePoint Framework Version
 
@@ -47,7 +47,7 @@ Alternatively, you can use `npm run serve` by making use of the `fast-serve` mod
 
 ## Description
 
-The SPFX MSAL Authentication Demo webpart provides a practical example of implementing Microsoft Authentication Library (MSAL) within a SharePoint Framework environment, allowing users to authenticate against Azure AD and obtain access tokens for secure API calls. It serves as a template for developers to understand and implement Azure AD authentication in their own SharePoint Framework solutions.
+The SPFX MSAL Authentication Demo webpart provides a practical example of implementing Microsoft Authentication Library (MSAL) within a SharePoint Framework environment, allowing users to authenticate against Entra ID and obtain access tokens for secure API calls. It serves as a template for developers to understand and implement Entra ID authentication in their own SharePoint Framework solutions.
 
 ### Technical Details
 
@@ -73,7 +73,7 @@ The SPFX MSAL Authentication Demo webpart provides a practical example of implem
 ### Configuration Requirements
 
 - Entra ID
-  - App registration ()
+  - App registration
   - Authentication type: Single-page application (SPA)
   - Implicit authorisation and hybrid flows: ID token
   - Application type: single tenant application
