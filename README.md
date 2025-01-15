@@ -2,9 +2,9 @@
 
 ## Summary
 
-Short summary on functionality and used technologies.
+The SPFX MSAL Authentication Demo webpart provides a practical example of implementing Microsoft Authentication Library (MSAL) within a SharePoint Framework environment, allowing users to authenticate against Azure AD and obtain access tokens for secure API calls. 
 
-[picture of the solution in action, if possible]
+It should serve as a template for developers to understand and implement Azure AD authentication in their own SharePoint Framework solutions.
 
 ## Used SharePoint Framework Version
 
@@ -17,22 +17,17 @@ Short summary on functionality and used technologies.
 
 > Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
 
-## Prerequisites
-
-> Any special pre-requisites?
-
 ## Solution
 
-| Solution    | Author(s)                                               |
-| ----------- | ------------------------------------------------------- |
-| folder name | Author details (name, company, twitter alias with link) |
+| Solution         | Author(s)                                               |
+| ---------------- | ------------------------------------------------------- |
+| spFxMsalAuthDemo | Tobias Maestrini, isolutions AG (tobias.maestrini@gmail, https://bsky.app/profile/tmaestrini.bsky.social) |
 
 ## Version history
 
 | Version | Date             | Comments        |
 | ------- | ---------------- | --------------- |
-| 1.1     | March 10, 2021   | Update comment  |
-| 1.0     | January 29, 2021 | Initial release |
+| 1.0     | January 03, 2025 | Initial release |
 
 ## Disclaimer
 
@@ -48,26 +43,43 @@ Short summary on functionality and used technologies.
   - **npm install**
   - **gulp serve**
 
-> Include any additional steps as needed.
+Alternatively, you can use `npm run serve` by making use of the `fast-serve` module.
 
-## Features
+## Description
 
-Description of the extension that expands upon high-level summary above.
+The SPFX MSAL Authentication Demo webpart provides a practical example of implementing Microsoft Authentication Library (MSAL) within a SharePoint Framework environment, allowing users to authenticate against Azure AD and obtain access tokens for secure API calls. It serves as a template for developers to understand and implement Azure AD authentication in their own SharePoint Framework solutions.
 
-This extension illustrates the following concepts:
+### Technical Details
 
-- topic 1
-- topic 2
-- topic 3
+- Framework: SharePoint Framework (SPFx)
+- Authentication: MSAL.js v2
+- Language: TypeScript/React
+- Key Components used in the solution:
+  - `AuthenticationContext`: Manages auth state
+  - `PublicClientApplication`: MSAL instance
+  - `TokenAcquisition`: Silent and interactive flows
+  - `StateManagement`: React Context API
 
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
+### Implementation
 
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+- Configurable client ID and tenant ID
+- Custom scope management
+- Token caching in sessionStorage
+- Silent token refresh
+- Interactive login fallback
+- Error handling for auth failures
+
+
+### Configuration Requirements
+
+- Entra ID
+  - App registration ()
+  - Authentication type: Single-page application (SPA)
+  - Implicit authorisation and hybrid flows: ID token
+  - Application type: single tenant application
+  - Redirect URI: https://{tenant}.sharepoint.com/_layouts/15/workbench.aspx
+  - Required API Permissions: Microsoft Graph (User.Read), any further permission(s) along your (demo) needs
 
 ## References
 
-- [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-- [Building for Microsoft teams](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/build-for-teams-overview)
-- [Use Microsoft Graph in your solution](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis)
-- [Publish SharePoint Framework applications to the Marketplace](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/publish-to-marketplace-overview)
-- [Microsoft 365 Patterns and Practices](https://aka.ms/m365pnp) - Guidance, tooling, samples and open-source controls for your Microsoft 365 development
+- Microsoft Learn: [Acquiring and Using an (MSAL) Access Token](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/acquire-token.md)
