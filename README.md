@@ -64,7 +64,7 @@ The SPFX MSAL Authentication Demo webpart provides a practical example of implem
 
 - Configurable client ID and tenant ID
 - Custom scope management
-- Token caching in `sessionStorage`
+- Token caching in `localStorage`
 - Silent token refresh
 - Interactive login fallback
 - Error handling for auth failures
@@ -75,7 +75,6 @@ The SPFX MSAL Authentication Demo webpart provides a practical example of implem
 - Entra ID
   - App registration
   - Authentication type: Single-page application (SPA)
-  - Implicit authorisation and hybrid flows: ID token
   - Supported account types: Accounts in this organizational directory only
   - Redirect URI: 
     - `https://{tenant}.sharepoint.com`
