@@ -67,8 +67,21 @@ export const AuthenticationContextProvider = (props: AuthenticationContextProvid
           setAccessToken(result.accessToken);
         }
       }
+
     } catch (error) {
-      console.error("Error acquiring token silently:", error);
+      console.error("Error acquiring token silently, using popup:", error);
+
+      // Fall back to interactive authentication with popup
+      try {
+        if (msalObj) {
+          const result = await msalObj.acquireTokenPopup({
+            scopes: props.scopes ? [...props.scopes.split(',')] : [],
+          });
+        }
+      } catch (popupError) {
+        console.error("Error during popup authentication:", popupError);
+        setIsAuthenticated(false);
+      }
     }
   }
 
@@ -80,7 +93,7 @@ export const AuthenticationContextProvider = (props: AuthenticationContextProvid
       console.error('Error initializing MSAL:', err);
     });
   }
-  
+
   React.useEffect(() => {
     initializeMsal().catch(err => {
       console.error('Error initializing MSAL:', err);
