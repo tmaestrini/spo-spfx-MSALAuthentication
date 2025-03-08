@@ -60,7 +60,7 @@ export const AuthenticationContextProvider = (props: AuthenticationContextProvid
 
         console.log('Silent token result:', result);
 
-        if (msalObj && result.accessToken) {
+        if (result.accessToken) {
           const accounts = msalObj.getAllAccounts();
           setIsAuthenticated(accounts.length > 0);
           setUserScopes(result.scopes.join(', '));
